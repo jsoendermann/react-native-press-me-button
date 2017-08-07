@@ -1,0 +1,22 @@
+{
+  "name": "react-native-press-me-button",
+  "version": "0.0.2",
+  "description": "An attention grabbing button.",
+  "author": {
+    "name": "Jan Soendermann",
+    "email": "jan.soendermann+npm@gmail.com"
+  },
+  "license": "Apache-2.0",
+  "main": "index.js",
+  "peerDependencies": {
+    "react": "16.0.0-alpha.12",
+    "react-native": "0.47.1"
+  },
+  "dependencies": {
+    "color": "^2.0.0",
+    "prop-types": "^15.5.10"
+  },
+  "devDependencies": {
+    "prettier": "^1.5.3"
+  }
+}

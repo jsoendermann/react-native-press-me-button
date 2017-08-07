@@ -1,0 +1,23 @@
+import React, { Component } from 'react'
+import { StyleSheet, View } from 'react-native'
+
+import PressMeButton from './PressMeButton'
+
+export default class PressMeExample extends Component {
+  render() {
+    return (
+      <View style={styles.container}>
+        <PressMeButton title="Press me!" style={{ height: 50, width: 240 }} />
+      </View>
+    )
+  }
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#DFDFDF',
+  },
+})
