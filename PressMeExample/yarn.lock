@@ -3259,6 +3259,13 @@ react-devtools-core@2.3.1:
     shell-quote "^1.6.1"
     ws "^2.0.3"
 
+react-native-press-me-button@*:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/react-native-press-me-button/-/react-native-press-me-button-0.0.2.tgz#0b8bd246f93f51c2ceaaa10663257cd97271ce34"
+  dependencies:
+    color "^2.0.0"
+    prop-types "^15.5.10"
+
 react-native@0.47.1:
   version "0.47.1"
   resolved "https://registry.yarnpkg.com/react-native/-/react-native-0.47.1.tgz#b4a1f1e92a57ff5868de2bfa9d8ece3192635242"
