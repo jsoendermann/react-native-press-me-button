@@ -5,9 +5,13 @@ A button you can't help but press. This is a pure JavaScript component.
 ![react-native-press-me-button demo](https://github.com/jsoendermann/react-native-press-me-button/raw/master/imgs/ios.gif)
 ![react-native-press-me-button demo](https://github.com/jsoendermann/react-native-press-me-button/raw/master/imgs/android.gif)
 
-## Example
+## Usage
+
+Install with `yarn add react-native-press-me-button`
 
 ```javascript
+import PressMeButton from 'react-native-press-me-button'
+
 <PressMeButton
   style={{ height: 50, width: 240 }}
   title="Press me!"
@@ -21,13 +25,6 @@ A button you can't help but press. This is a pure JavaScript component.
   pulseMagnitude={1.05}
 />
 ```
-
-# Install
-
-Install with
-`yarn add react-native-press-me-button`
-and import with
-`import PressMeButton from 'react-native-press-me-button'`
 
 ## License
 
