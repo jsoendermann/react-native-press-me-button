@@ -87,6 +87,7 @@ export default class PressMeButton extends React.Component {
             !this.state.isPressed && this.props.shadowStyle,
             this.props.pulse && { transform: [{ scale: buttonScale }] },
             {
+              backgroundColor: 'transparent',
               borderBottomLeftRadius: this.props.bottomRadius,
               borderBottomRightRadius: this.props.bottomRadius,
             },
