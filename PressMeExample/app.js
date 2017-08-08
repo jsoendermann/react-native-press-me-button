@@ -7,9 +7,16 @@ export default class PressMeExample extends Component {
     return (
       <View style={styles.container}>
         <PressMeButton
-          title="Press me!"
           style={{ height: 50, width: 240 }}
+          onPress={() => console.log('Pressed!')}
+          pulseDuration={1000}
+          pulseMagnitude={1.05}
           bottomRadius={2}
+          backgroundColor="blue"
+          titleStyle={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}
+          title="Press me!"
+          edgeHeight={10}
+          pulse
         />
       </View>
     )
