@@ -5,6 +5,7 @@ import {
   TouchableWithoutFeedback,
   Animated,
   StyleSheet,
+  PixelRatio,
 } from 'react-native'
 import PropTypes from 'prop-types'
 import color from 'color'
@@ -99,6 +100,12 @@ export default class PressMeButton extends React.Component {
               flex: 1,
               justifyContent: 'center',
               alignItems: 'center',
+              borderTopWidth: 1 / PixelRatio.get(),
+              borderLeftWidth: 1 / PixelRatio.get(),
+              borderRightWidth: 1 / PixelRatio.get(),
+              borderColor: color(this.props.backgroundColor)
+                .darken(0.15)
+                .toString(),
             }}
           >
             <Text style={this.props.titleStyle}>
