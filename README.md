@@ -1,6 +1,6 @@
 # Press Me!
 
-A button you can't help but press. This is a pure JavaScript component. Install with `yarn add react-native-press-me-button` and import with `import PressMeButton from 'react-native-press-me-button'`.
+A button you can't help but press. This is a pure JavaScript component.
 
 ![react-native-press-me-button demo](https://github.com/jsoendermann/react-native-press-me-button/raw/master/imgs/ios.gif)
 ![react-native-press-me-button demo](https://github.com/jsoendermann/react-native-press-me-button/raw/master/imgs/android.gif)
@@ -21,6 +21,13 @@ A button you can't help but press. This is a pure JavaScript component. Install 
   pulseMagnitude={1.05}
 />
 ```
+
+# Install
+
+Install with
+`yarn add react-native-press-me-button`
+and import with
+`import PressMeButton from 'react-native-press-me-button'`
 
 ## License
 
