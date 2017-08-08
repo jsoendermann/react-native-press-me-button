@@ -9,8 +9,7 @@ export default class PressMeExample extends Component {
         <PressMeButton
           title="Press me!"
           style={{ height: 50, width: 240 }}
-          bottomRadius={3}
-          pulse={false}
+          bottomRadius={2}
         />
       </View>
     )
