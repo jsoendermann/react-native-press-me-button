@@ -1,0 +1,11 @@
+{
+  "include": ["index.tsx"],
+  "compilerOptions": {
+    "target": "es6",
+    "strict": true,
+    "declaration": true,
+    "jsx": "react-native",
+    "moduleResolution": "node",
+    "lib": ["es2015", "es2016", "dom"]
+  }
+}
