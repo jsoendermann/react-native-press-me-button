@@ -13,16 +13,27 @@ Install with `yarn add react-native-press-me-button`
 import PressMeButton from 'react-native-press-me-button'
 
 <PressMeButton
-  style={{ height: 50, width: 240 }}
+  height={50}
+  width={240}
   title="Press me!"
+  titleStyle={{
+    color: 'white',
+    fontSize: 18,
+    fontWeight: 'bold',
+  }}
+  // This is the background color behind the button. Make sure to set this prop!
+  backgroundColor="#F0F0F0"
   onPress={() => console.log('Pressed!')}
-  backgroundColor="blue"
-  titleStyle={{ color: 'white', fontSize: 18, fontWeight: 'bold' }}
-  bottomRadius={2}
+  buttonColor="blue"
   edgeHeight={10}
-  pulse
-  pulseDuration={1000}
-  pulseMagnitude={1.05}
+  cornerRadius={5}
+  shadowStyle={{
+    shadowColor: '#0000AA',
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.8,
+    shadowRadius: 6,
+    elevation: 10,
+  }}
 />
 ```
 
