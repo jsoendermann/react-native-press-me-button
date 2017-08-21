@@ -1,2 +1,5 @@
 PressMeButtonExample
 .gitignore
+index.tsx
+tsconfig.json
+imgs
