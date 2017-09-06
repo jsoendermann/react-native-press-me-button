@@ -14,6 +14,8 @@ export interface PressMeButtonProps {
   title: string
 
   onPress: () => void
+  onPressIn?: () => void
+  onPressOut?: () => void
 
   width: number
   height: number
@@ -39,15 +41,14 @@ export interface PressMeButtonState {
   isPressed: boolean
 }
 
-export default class PressMeButton extends React.Component<
-  PressMeButtonProps,
-  PressMeButtonState
-> {
+export default class PressMeButton extends React.Component<PressMeButtonProps, PressMeButtonState> {
   state = {
     isPressed: false,
   }
 
   static defaultProps: Partial<PressMeButtonProps> = {
+    onPressIn: () => {},
+    onPressOut: () => {},
     style: {},
     titleStyle: {
       fontSize: 18,
@@ -68,8 +69,15 @@ export default class PressMeButton extends React.Component<
     darkenEdgeBy: 0.3,
   }
 
-  onPressIn = () => this.setState({ isPressed: true })
-  onPressOut = () => this.setState({ isPressed: false })
+  onPressIn = () => {
+    this.setState({ isPressed: true })
+    this.props.onPressIn!()
+  }
+
+  onPressOut = () => {
+    this.setState({ isPressed: false })
+    this.props.onPressOut!()
+  }
 
   render() {
     const edgeColor =
