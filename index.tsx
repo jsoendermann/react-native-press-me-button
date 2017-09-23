@@ -11,8 +11,6 @@ import {
 const color = require('color')
 
 export interface PressMeButtonProps {
-  title: string
-
   onPress: () => void
   onPressIn?: () => void
   onPressOut?: () => void
@@ -20,7 +18,6 @@ export interface PressMeButtonProps {
   width: number
   height: number
   style?: ViewStyle
-  titleStyle?: TextStyle
   buttonColor: string
   // This is the color of the background behind
   // the button. If you don't set this,
@@ -29,6 +26,7 @@ export interface PressMeButtonProps {
   // shadows efficiently.
   backgroundColor?: string
   shadowStyle?: ViewStyle
+  frontStyle?: ViewStyle
 
   cornerRadius?: number
 
@@ -41,7 +39,10 @@ export interface PressMeButtonState {
   isPressed: boolean
 }
 
-export default class PressMeButton extends React.Component<PressMeButtonProps, PressMeButtonState> {
+export default class PressMeButton extends React.Component<
+  PressMeButtonProps,
+  PressMeButtonState
+> {
   state = {
     isPressed: false,
   }
@@ -50,10 +51,6 @@ export default class PressMeButton extends React.Component<PressMeButtonProps, P
     onPressIn: () => {},
     onPressOut: () => {},
     style: {},
-    titleStyle: {
-      fontSize: 18,
-      fontWeight: 'bold',
-    },
     backgroundColor: 'transparent',
     shadowStyle: {
       shadowColor: 'black',
@@ -62,6 +59,7 @@ export default class PressMeButton extends React.Component<PressMeButtonProps, P
       shadowRadius: 6,
       elevation: 10,
     },
+    frontStyle: {},
 
     cornerRadius: 2,
 
@@ -119,19 +117,20 @@ export default class PressMeButton extends React.Component<PressMeButtonProps, P
             />}
           {/* Front */}
           <View
-            style={{
-              marginTop: this.state.isPressed ? this.props.edgeHeight : 0,
-              marginBottom: this.state.isPressed ? 0 : this.props.edgeHeight,
-              backgroundColor: this.props.buttonColor,
-              flex: 1,
-              justifyContent: 'center',
-              alignItems: 'center',
-              borderRadius: this.props.cornerRadius,
-            }}
+            style={[
+              {
+                marginTop: this.state.isPressed ? this.props.edgeHeight : 0,
+                marginBottom: this.state.isPressed ? 0 : this.props.edgeHeight,
+                backgroundColor: this.props.buttonColor,
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'center',
+                borderRadius: this.props.cornerRadius,
+              },
+              this.props.frontStyle,
+            ]}
           >
-            <Text style={this.props.titleStyle}>
-              {this.props.title}
-            </Text>
+            {this.props.children}
           </View>
         </View>
       </TouchableWithoutFeedback>
