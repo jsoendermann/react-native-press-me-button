@@ -33,6 +33,8 @@ export interface PressMeButtonProps {
   edgeColor?: string
   edgeHeight?: number
   darkenEdgeBy?: number
+
+  disabled?: boolean
 }
 
 export interface PressMeButtonState {
@@ -68,30 +70,40 @@ export default class PressMeButton extends React.Component<
   }
 
   onPressIn = () => {
+    if (this.props.disabled) {
+      return
+    }
     this.setState({ isPressed: true })
     this.props.onPressIn!()
   }
 
   onPressOut = () => {
+    if (this.props.disabled) {
+      return
+    }
     this.setState({ isPressed: false })
     this.props.onPressOut!()
   }
 
+  onPress = () => !this.props.disabled && this.props.onPress()
+
   render() {
+    const { disabled } = this.props
+
     const edgeColor =
       this.props.edgeColor ||
       color(this.props.buttonColor).darken(this.props.darkenEdgeBy).toString()
 
     return (
       <TouchableWithoutFeedback
-        onPress={this.props.onPress}
+        onPress={this.onPress}
         onPressIn={this.onPressIn}
         onPressOut={this.onPressOut}
       >
         {/* Container */}
         <View
           style={[
-            !this.state.isPressed && this.props.shadowStyle,
+            !this.state.isPressed && !disabled && this.props.shadowStyle,
             {
               width: this.props.width,
               height: this.props.height + this.props.edgeHeight!,
@@ -103,6 +115,7 @@ export default class PressMeButton extends React.Component<
         >
           {/* Edge */}
           {!this.state.isPressed &&
+            !disabled &&
             <View
               style={{
                 position: 'absolute',
@@ -119,8 +132,10 @@ export default class PressMeButton extends React.Component<
           <View
             style={[
               {
-                marginTop: this.state.isPressed ? this.props.edgeHeight : 0,
-                marginBottom: this.state.isPressed ? 0 : this.props.edgeHeight,
+                marginTop:
+                  disabled || this.state.isPressed ? this.props.edgeHeight : 0,
+                marginBottom:
+                  disabled || this.state.isPressed ? 0 : this.props.edgeHeight,
                 backgroundColor: this.props.buttonColor,
                 flex: 1,
                 justifyContent: 'center',
