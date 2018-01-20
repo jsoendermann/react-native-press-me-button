@@ -15,7 +15,7 @@ export interface PressMeButtonProps {
   onPressIn?: () => void
   onPressOut?: () => void
 
-  width: number
+  width?: number
   height: number
   style?: ViewStyle
   buttonColor: string
@@ -92,7 +92,19 @@ export default class PressMeButton extends React.Component<
 
     const edgeColor =
       this.props.edgeColor ||
-      color(this.props.buttonColor).darken(this.props.darkenEdgeBy).toString()
+      color(this.props.buttonColor)
+        .darken(this.props.darkenEdgeBy)
+        .toString()
+
+    const containerViewStyle: any = {
+      height: this.props.height + this.props.edgeHeight!,
+      backgroundColor: this.props.backgroundColor,
+      borderRadius: this.props.cornerRadius,
+    }
+
+    if (this.props.width !== undefined) {
+      containerViewStyle.width = this.props.width
+    }
 
     return (
       <TouchableWithoutFeedback
@@ -104,30 +116,26 @@ export default class PressMeButton extends React.Component<
         <View
           style={[
             !this.state.isPressed && !disabled && this.props.shadowStyle,
-            {
-              width: this.props.width,
-              height: this.props.height + this.props.edgeHeight!,
-              backgroundColor: this.props.backgroundColor,
-              borderRadius: this.props.cornerRadius,
-            },
+            containerViewStyle,
             this.props.style,
           ]}
         >
           {/* Edge */}
           {!this.state.isPressed &&
-            !disabled &&
-            <View
-              style={{
-                position: 'absolute',
-                left: 0,
-                right: 0,
-                bottom: 0,
-                height: this.props.cornerRadius! + this.props.edgeHeight!,
-                backgroundColor: edgeColor,
-                borderBottomLeftRadius: this.props.cornerRadius,
-                borderBottomRightRadius: this.props.cornerRadius,
-              }}
-            />}
+            !disabled && (
+              <View
+                style={{
+                  position: 'absolute',
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  height: this.props.cornerRadius! + this.props.edgeHeight!,
+                  backgroundColor: edgeColor,
+                  borderBottomLeftRadius: this.props.cornerRadius,
+                  borderBottomRightRadius: this.props.cornerRadius,
+                }}
+              />
+            )}
           {/* Front */}
           <View
             style={[
