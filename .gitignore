@@ -1,6 +1,5 @@
 node_modules
 .DS_Store
-PressMeButtonExample
 index.jsx
 index.js
 index.d.ts
