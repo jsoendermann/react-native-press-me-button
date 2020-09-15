@@ -33,119 +33,108 @@ export interface PressMeButtonState {
   isPressed: boolean
 }
 
-export default class PressMeButton extends React.Component<
-  PressMeButtonProps,
-  PressMeButtonState
-> {
-  state = {
-    isPressed: false,
-  }
+const PressMeButton: React.FC<PressMeButtonProps> = props => {
+  const [isPressed, setIsPressed] = React.useState(false)
 
-  static defaultProps: Partial<PressMeButtonProps> = {
-    onPressIn: () => {},
-    onPressOut: () => {},
-    style: {},
-    backgroundColor: 'transparent',
-    shadowStyle: {
+  const {
+    width,
+    height,
+    style,
+    buttonColor,
+    backgroundColor = 'transparent',
+    shadowStyle = {
       shadowColor: 'black',
       shadowOffset: { width: 0, height: 3 },
       shadowOpacity: 0.8,
       shadowRadius: 6,
       elevation: 10,
     },
-    frontStyle: {},
+    frontStyle,
+    cornerRadius = 2,
+    edgeHeight = 10,
+    darkenEdgeBy = 0.3,
+    disabled,
+    children,
+  } = props
 
-    cornerRadius: 2,
+  const onPressIn = React.useCallback(() => {
+    setIsPressed(true)
+    if (!disabled) {
+      props.onPressIn?.()
+    }
+  }, [setIsPressed, disabled, props.onPressIn])
 
-    edgeHeight: 10,
-    darkenEdgeBy: 0.3,
+  const onPressOut = React.useCallback(() => {
+    setIsPressed(false)
+    if (!disabled) {
+      props.onPressOut?.()
+    }
+  }, [setIsPressed, disabled, props.onPressOut])
+
+  const onPress = React.useCallback(() => {
+    if (!disabled) {
+      props.onPress()
+    }
+  }, [disabled, props.onPress])
+
+  const edgeColor =
+    props.edgeColor || color(buttonColor).darken(darkenEdgeBy).toString()
+
+  const containerViewStyle: ViewStyle = {
+    height: height + edgeHeight!,
+    backgroundColor: backgroundColor,
+    borderRadius: cornerRadius,
   }
 
-  onPressIn = () => {
-    if (this.props.disabled) {
-      return
-    }
-    this.setState({ isPressed: true })
-    this.props.onPressIn!()
+  if (width !== undefined) {
+    containerViewStyle.width = width
   }
 
-  onPressOut = () => {
-    if (this.props.disabled) {
-      return
-    }
-    this.setState({ isPressed: false })
-    this.props.onPressOut!()
-  }
+  const isDepressed = isPressed || disabled
 
-  onPress = () => !this.props.disabled && this.props.onPress()
-
-  render() {
-    const { disabled } = this.props
-
-    const edgeColor =
-      this.props.edgeColor ||
-      color(this.props.buttonColor).darken(this.props.darkenEdgeBy).toString()
-
-    const containerViewStyle: any = {
-      height: this.props.height + this.props.edgeHeight!,
-      backgroundColor: this.props.backgroundColor,
-      borderRadius: this.props.cornerRadius,
-    }
-
-    if (this.props.width !== undefined) {
-      containerViewStyle.width = this.props.width
-    }
-
-    return (
-      <TouchableWithoutFeedback
-        onPress={this.onPress}
-        onPressIn={this.onPressIn}
-        onPressOut={this.onPressOut}
-      >
-        {/* Container */}
+  return (
+    <TouchableWithoutFeedback
+      onPress={onPress}
+      onPressIn={onPressIn}
+      onPressOut={onPressOut}
+    >
+      {/* Container */}
+      <View style={[!isDepressed && shadowStyle, containerViewStyle, style]}>
+        {/* Bottom edge */}
+        {!isDepressed && (
+          <View
+            style={{
+              position: 'absolute',
+              left: 0,
+              right: 0,
+              bottom: 0,
+              height: cornerRadius! + edgeHeight!,
+              backgroundColor: edgeColor,
+              borderBottomLeftRadius: cornerRadius,
+              borderBottomRightRadius: cornerRadius,
+            }}
+          />
+        )}
+        {/* Front */}
         <View
           style={[
-            !this.state.isPressed && !disabled && this.props.shadowStyle,
-            containerViewStyle,
-            this.props.style,
+            {
+              marginTop: isDepressed ? edgeHeight : 0,
+              marginBottom: isDepressed ? 0 : edgeHeight,
+              backgroundColor: buttonColor,
+              flex: 1,
+              justifyContent: 'center',
+              alignItems: 'center',
+              borderRadius: cornerRadius,
+            },
+            frontStyle,
           ]}
         >
-          {/* Edge */}
-          {!this.state.isPressed && !disabled && (
-            <View
-              style={{
-                position: 'absolute',
-                left: 0,
-                right: 0,
-                bottom: 0,
-                height: this.props.cornerRadius! + this.props.edgeHeight!,
-                backgroundColor: edgeColor,
-                borderBottomLeftRadius: this.props.cornerRadius,
-                borderBottomRightRadius: this.props.cornerRadius,
-              }}
-            />
-          )}
-          {/* Front */}
-          <View
-            style={[
-              {
-                marginTop:
-                  disabled || this.state.isPressed ? this.props.edgeHeight : 0,
-                marginBottom:
-                  disabled || this.state.isPressed ? 0 : this.props.edgeHeight,
-                backgroundColor: this.props.buttonColor,
-                flex: 1,
-                justifyContent: 'center',
-                alignItems: 'center',
-                borderRadius: this.props.cornerRadius,
-              },
-              this.props.frontStyle,
-            ]}
-          >
-            {this.props.children}
-          </View>
+          {children}
         </View>
-      </TouchableWithoutFeedback>
-    )
-  }
+      </View>
+    </TouchableWithoutFeedback>
+  )
 }
+
+export default PressMeButton
